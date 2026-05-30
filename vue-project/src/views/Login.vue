@@ -48,12 +48,11 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, onMounted } from 'vue'
 import { loginAPI } from '@/api'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 import { ElMessage } from 'element-plus'
-import { el } from 'element-plus/es/locales.mjs'
 
 // 表单数据
 const loginForm = reactive({
@@ -67,6 +66,24 @@ const loading = ref(false)
 
 // 错误提示
 const errorMessage = ref('')
+
+// 记住我的存储 key
+const REMEMBER_KEY = 'remembered_credentials'
+
+// 页面加载时：读取“记住我”保存的账号密码
+onMounted(() => {
+  try {
+    const saved = localStorage.getItem(REMEMBER_KEY)
+    if (saved) {
+      const { username, password } = JSON.parse(saved)
+      loginForm.username = username || ''
+      loginForm.password = password || ''
+      loginForm.rememberMe = true
+    }
+  } catch {
+    // 数据损坏则忽略
+  }
+})
 
 // 登录处理
 const handleLogin = async () => {
@@ -94,13 +111,24 @@ const handleLogin = async () => {
     })
 
     if (result.success) {
-      // 保存 token（后续会用到状态管理）
+      // 保存 token
       if (result.token) {
         localStorage.setItem('token', result.token)
       }
       if (result.user) {
         localStorage.setItem('user', JSON.stringify(result.user))
       }
+
+      // 记住我：存账号密码；不记住则清除
+      if (loginForm.rememberMe) {
+        localStorage.setItem(REMEMBER_KEY, JSON.stringify({
+          username: loginForm.username,
+          password: loginForm.password
+        }))
+      } else {
+        localStorage.removeItem(REMEMBER_KEY)
+      }
+
       router.push('/home')
       ElMessage.success('登录成功')
     

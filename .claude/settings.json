@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh api *)",
+      "Bash(curl -sL --connect-timeout 10 \"https://cdn.jsdelivr.net/gh/vercel-labs/skills@main/skills/find-skills/SKILL.md\")",
+      "Bash(mkdir -p .claude/skills/find-skills)",
+      "Edit(/.claude/skills/find-skills/**)",
+      "Bash(npx vite *)",
+      "Bash(sleep 5 && cat /c/Users/lenovo/AppData/Local/Temp/claude/d--wzxzs-frontendStudying-myVue/c8bc38f0-3827-43b8-ae20-574109bb02c3/tasks/bg93w275l.output)",
+      "Read(//c/Users/lenovo/AppData/Local/Temp/claude/d--wzxzs-frontendStudying-myVue/c8bc38f0-3827-43b8-ae20-574109bb02c3/tasks/**)",
+      "Bash(npm run *)",
+      "Bash(/d/Node/node node_modules/.bin/vite --host)",
+      "Bash(/d/Node/node /d/wzxzs/frontendStudying/myVue/vue-project/node_modules/.bin/vite --host)",
+      "Bash(PATH=/d/Node:__TRACKED_VAR__ npx vite --host)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/)",
+      "Bash(/d/Node/node node_modules/.bin/vue-tsc --noEmit)",
+      "Bash(PATH=/d/Node:__TRACKED_VAR__ npx vue-tsc --noEmit)"
+    ],
+    "additionalDirectories": [
+      "D:\\wzxzs\\frontendStudying\\myVue\\.claude\\skills"
+    ]
+  }
+}
